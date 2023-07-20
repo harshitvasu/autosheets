@@ -1,3 +1,8 @@
+# Setup
+- Install NPM
+- Then install all the packages using below command
+`npm install`
+
 # How to run the app
 
 `node index.js`
