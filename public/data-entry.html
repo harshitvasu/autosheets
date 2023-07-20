@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form</title>
+  </head>
+  <body>
+    <h1>Enter Name and Mobile Number</h1>
+    <form id="dataForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required><br><br>
+      <label for="mobile">Mobile Number:</label>
+      <input type="tel" id="mobile" name="mobile" required><br><br>
+      <button type="submit">Submit</button>
+    </form>
+    
+    <script>
+      document.getElementById("dataForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData.entries());
+        
+        // Send the data to the /sheet route
+        fetch('/sheet', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+          alert(result.message);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      });
+    </script>
+  </body>
+</html>
